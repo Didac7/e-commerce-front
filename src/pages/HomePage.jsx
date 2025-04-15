@@ -62,50 +62,98 @@
 // export default HomePage;
 
 
-// src/pages/HomePage.jsx
+// import React, { useState } from 'react';
+// import products from '../data/products'; // Asegúrate de que esta ruta sea correcta
+// import Categorias from '../components/Categorias';
+// import ProductCard from '../components/ProductCard'; // Suponiendo que ya tienes un componente para mostrar productos
+
+// const HomePage = () => {
+//   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('Todas');
+
+//   // Obtenemos las categorías únicas de los productos
+//   const categoriasUnicas = [
+//     ...new Set(products.map((producto) => producto.category)),
+//   ];
+
+//   // Filtramos los productos según la categoría seleccionada
+//   const productosFiltrados =
+//     categoriaSeleccionada === 'Todas'
+//       ? products
+//       : products.filter(
+//           (producto) => producto.category === categoriaSeleccionada
+//         );
+
+//   return (
+//     <div className="flex flex-col lg:flex-row">
+//       <aside className="w-full lg:w-1/4 p-4">
+//         <Categorias
+//           categorias={categoriasUnicas}
+//           seleccionarCategoria={setCategoriaSeleccionada}
+//         />
+//       </aside>
+
+//       <main className="w-full lg:w-3/4 p-4">
+//         <h2 className="text-xl font-bold mb-4">
+//           {categoriaSeleccionada === 'Todas'
+//             ? 'Todos los productos'
+//             : `Categoría: ${categoriaSeleccionada}`}
+//         </h2>
+//         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+//           {productosFiltrados.map((producto) => (
+//             <ProductCard key={producto.id} product={producto} />
+//           ))}
+//         </div>
+//       </main>
+//     </div>
+//   );
+// };
+
+// export default HomePage;
+
+
 import React, { useState } from 'react';
 import products from '../data/products'; // Asegúrate de que esta ruta sea correcta
 import Categorias from '../components/Categorias';
-import ProductCard from '../components/ProductCard'; // Suponiendo que ya tienes un componente para mostrar productos
+import ProductCard from '../components/ProductCard';
+import Footer from '../components/Footer'; // 👈 IMPORTAMOS FOOTER
 
 const HomePage = () => {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('Todas');
 
-  // Obtenemos las categorías únicas de los productos
-  const categoriasUnicas = [
-    ...new Set(products.map((producto) => producto.category)),
-  ];
+  const categoriasUnicas = ['Todas', ...new Set(products.map(producto => producto.category))];
 
-  // Filtramos los productos según la categoría seleccionada
   const productosFiltrados =
     categoriaSeleccionada === 'Todas'
       ? products
-      : products.filter(
-          (producto) => producto.category === categoriaSeleccionada
-        );
+      : products.filter(producto => producto.category === categoriaSeleccionada);
 
   return (
-    <div className="flex flex-col lg:flex-row">
-      <aside className="w-full lg:w-1/4 p-4">
-        <Categorias
-          categorias={categoriasUnicas}
-          seleccionarCategoria={setCategoriaSeleccionada}
-        />
-      </aside>
+    <>
+      <div className="flex flex-col lg:flex-row min-h-screen">
+        <aside className="w-full lg:w-1/4 p-4">
+          <Categorias
+            categorias={categoriasUnicas}
+            seleccionarCategoria={setCategoriaSeleccionada}
+          />
+        </aside>
 
-      <main className="w-full lg:w-3/4 p-4">
-        <h2 className="text-xl font-bold mb-4">
-          {categoriaSeleccionada === 'Todas'
-            ? 'Todos los productos'
-            : `Categoría: ${categoriaSeleccionada}`}
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {productosFiltrados.map((producto) => (
-            <ProductCard key={producto.id} product={producto} />
-          ))}
-        </div>
-      </main>
-    </div>
+        <main className="w-full lg:w-3/4 p-4">
+          <h2 className="text-xl font-bold mb-4">
+            {categoriaSeleccionada === 'Todas'
+              ? 'Todos los productos'
+              : `Categoría: ${categoriaSeleccionada}`}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {productosFiltrados.map(producto => (
+              <ProductCard key={producto.id} product={producto} />
+            ))}
+          </div>
+        </main>
+      </div>
+
+      {/* 👇 PIE DE PÁGINA SE MUESTRA DEBAJO DE TODO EL CONTENIDO */}
+      <Footer />
+    </>
   );
 };
 

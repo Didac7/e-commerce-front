@@ -23,7 +23,7 @@ const Navbar = () => {
           )}
         </Link>
 
-        <Link to="/" className="text-white hover:underline">
+        <Link to="/login" className="text-white hover:underline">
           Iniciar sesión
         </Link>
         <Link to="/registro" className="text-white hover:underline">
