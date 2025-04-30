@@ -25,7 +25,6 @@
 
 // export default AppRouter;
 
-
 // // src/routes/AppRouter.jsx
 // import React from 'react';
 // import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -81,10 +80,7 @@
 
 // export default AppRouter;
 
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 // import React from 'react';
 // import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
@@ -144,25 +140,30 @@
 
 // export default AppRouter;
 
-
-
-
-import React from 'react';
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
-import LoginPage from '../pages/LoginPage';
-import RegisterPage from '../pages/RegisterPage';
-import Navbar from '../components/Navbar';
-import HomePage from '../pages/HomePage';
-import ProductDetailPage from '../pages/ProductDetailPage';
-import CartPage from '../pages/CartPage';
-import AdminProductos from '../components/AdminProductos';
+import React from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
+import LoginPage from "../pages/LoginPage";
+import RegisterPage from "../pages/RegisterPage";
+import Navbar from "../components/Navbar";
+import HomePage from "../pages/HomePage";
+import ProductDetailPage from "../pages/ProductDetailPage";
+import CartPage from "../pages/CartPage";
+import AdminProductos from "../components/AdminProductos";
+import AdminCategorias from '../components/AdminCategorias';
 
 const AppRoutes = () => {
   const location = useLocation();
-  const userRol = localStorage.getItem('rol'); // Obtener el rol del usuario desde localStorage
+  const userRol = localStorage.getItem("rol"); // Obtener el rol del usuario desde localStorage
 
   // Mostrar el Footer solo en '/' o '/inicio'
-  const mostrarFooter = location.pathname === '/' || location.pathname === '/inicio';
+  const mostrarFooter =
+    location.pathname === "/" || location.pathname === "/inicio";
 
   return (
     <>
@@ -182,6 +183,14 @@ const AppRoutes = () => {
             userRol === "ADMIN" ? <AdminProductos /> : <Navigate to="/" />
           }
         />
+
+        {/* Ruta protegida para el administrador (categorías) */}
+        <Route
+          path="/admin/categorias"
+          element={
+            userRol === "ADMIN" ? <AdminCategorias /> : <Navigate to="/" />
+          }
+        />
       </Routes>
     </>
   );
@@ -194,8 +203,3 @@ const AppRouter = () => (
 );
 
 export default AppRouter;
-
-
-
-
-

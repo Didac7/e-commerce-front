@@ -234,7 +234,16 @@ const Login = () => {
         console.log('Login exitoso:', data);
 
         // Guardar usuario y rol en localStorage
-        localStorage.setItem('user', data.username);
+        //localStorage.setItem('user', data.username);
+        localStorage.setItem('user', JSON.stringify(data)); //descomentar esto si falla
+        
+        // localStorage.setItem("user", JSON.stringify({
+        //   username: data.username,
+        //   rol: data.rol,
+        //   is_admin: data.is_admin,
+        //   cliente_id: data.cliente_id
+        // }));
+
         localStorage.setItem('rol', data.rol);  // Asegúrate de que 'rol' sea 'ADMIN' si es administrador
         // console.log('Login exitoso:', data);
 
@@ -245,7 +254,24 @@ const Login = () => {
         } else {
           navigate("/");  // Redirige a la página de inicio si no es admin
         }
-      } else {
+      } 
+      // if (response.ok) {
+      //   const data = await response.json();
+      
+      //   // ✅ Guarda todos los datos útiles
+      //   localStorage.setItem("user", JSON.stringify({
+      //     username: data.username,
+      //     rol: data.rol,
+      //     is_admin: data.is_admin,
+      //     cliente_id: data.cliente_id  // ✅ AÑADE ESTO
+      //   }));
+      
+      //   if (data.is_admin) {
+      //     navigate("/admin");
+      //   } else {
+      //     navigate("/");
+      //   }
+      else {
         const errorData = await response.json();
         alert(errorData.error || 'Credenciales inválidas');
       }
